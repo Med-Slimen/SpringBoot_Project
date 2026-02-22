@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css"
+href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+<meta charset="utf-8">
+<title>Liste des Projects</title>
+</head>
+<body>
+<div class="container mt-5">
+<div class="card">
+ <div class="card-header">
+ Liste des Projects
+ </div>
+ <div class="card-body">
+
+ <table class="table table-striped">
+ <tr>
+ <th>ID</th><th>Nom Projects</th><th>Nom Client</th><th>date Debut</th><th>montant Projects</th>
+ </tr>
+ <tr th:each="p:${projects.content}">
+ <td th:text="${p.idProject}"></td>
+ <td th:text="${p.nomProject}"></td>
+ <td th:text="${p.nomClient}"></td>
+ <td th:text="${p.dateDeb}"></td>
+ <td th:text="${p.montantProject}"></td>
+ </tr>
+ </table>
+ <ul class="nav nav-pills">
+  <li th:each="page,status:${pages}">
+  <a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+  th:href="@{ listeProjects(page=${status.index}, size=${size} ) }"
+  th:text="${status.index }"></a>
+  </li>
+  </ul>
+ </div>
+</div>
+</div>
+</body>
+</html>

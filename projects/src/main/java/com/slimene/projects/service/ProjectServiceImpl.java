@@ -3,6 +3,8 @@ package com.slimene.projects.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.slimene.projects.entities.Project;
@@ -41,6 +43,11 @@ public class ProjectServiceImpl implements ProjectService{
 	@Override
 	public List<Project> getAllProjects() {
 		return projectRepo.findAll();
+	}
+
+	@Override
+	public Page<Project> getAllProjectsParPage(int page, int size) {
+		return projectRepo.findAll(PageRequest.of(page, size));
 	}
 	
 }
