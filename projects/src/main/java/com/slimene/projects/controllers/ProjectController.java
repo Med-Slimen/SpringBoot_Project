@@ -28,6 +28,7 @@ public class ProjectController {
 		 modelMap.addAttribute("projects", projs);
 		  modelMap.addAttribute("pages", new int[projs.getTotalPages()]);
 		 modelMap.addAttribute("currentPage", page);
+		 modelMap.addAttribute("size", size);
 		 return "listeProjects";
 	
 	}
@@ -53,11 +54,15 @@ public class ProjectController {
 	}
 	 @RequestMapping("/supprimerProject")
 	public String supprimerProject(@RequestParam("id") Long id,
-	 ModelMap modelMap)
+	 ModelMap modelMap, @RequestParam (name="page",defaultValue = "0") int page,
+		@RequestParam (name="size", defaultValue = "3") int size)
 	{
 	projectService.deleteProjectById(id);
-	List<Project> prods = projectService.getAllProjects();
-	modelMap.addAttribute("projects", prods);
+	 Page<Project> projs = projectService.getAllProjectsParPage(page, size);
+	 modelMap.addAttribute("projects", projs);
+	  modelMap.addAttribute("pages", new int[projs.getTotalPages()]);
+	 modelMap.addAttribute("currentPage", page);
+	 modelMap.addAttribute("size", size);
 	return "listeProjects";
 	}
 
