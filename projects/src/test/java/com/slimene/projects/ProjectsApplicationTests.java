@@ -1,12 +1,14 @@
 package com.slimene.projects;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
+import com.slimene.projects.entities.Departement;
 import com.slimene.projects.entities.Project;
 import com.slimene.projects.repos.ProjectRepository;
 import com.slimene.projects.service.ProjectService;
@@ -20,7 +22,7 @@ class ProjectsApplicationTests {
 	private ProjectService projectService;
 	@Test
 	public void testCreateProject() {
-		Project project=new Project("Dev Mobile","Med",new Date(),100);
+		Project project=new Project("application mobile","Pop",new Date(),100);
 		projectRepo.save(project);
 	}
 	@Test
@@ -39,13 +41,10 @@ class ProjectsApplicationTests {
 		System.out.println(projectRepo.findAll());
 	}
 	@Test
-	public void testFindByNomProduitContains()
+	public void testFindByNomProjectContains()
 	{
-	Page<Project> projs = projectService.getAllProjectsParPage(0,2);
-	System.out.println(projs.getSize());
-	System.out.println(projs.getTotalElements());
-	System.out.println(projs.getTotalPages());
-	projs.getContent().forEach(p -> {System.out.println(p.toString());
+	List<Project> projs=projectRepo.findByNomProjectContains("Dev");
+	projs.forEach(p -> {System.out.println(p.toString());
 	 });
 	/*ou bien
 	for (Project p : projs.getContent())
@@ -53,4 +52,58 @@ class ProjectsApplicationTests {
 	System.out.println(p);
 	} */
 	}
+	@Test
+	public void testfindProjectByNomProject() {
+		List<Project> proj=projectRepo.findByNomProject("Dev Web");
+		System.out.println(proj);
+	}
+	@Test
+	public void testFindByNomMontant()
+	{
+	List<Project> projs = projectRepo.findByNomMontant("b", 90.0);
+	for (Project p : projs)
+	{
+	System.out.println(p);
+	}
+	}
+	@Test
+	public void testFindByDepartement()
+	{
+	Departement dep = new Departement();
+	dep.setIdDep(2L);
+	List<Project> projs = projectRepo.findByDepartement(dep);
+	for (Project p : projs)
+	{
+	System.out.println(p);
+	}
+	}
+	@Test
+	public void findByDepartementIdDep()
+	{
+	List<Project> prods = projectRepo.findByDepartementIdDep(1L);
+	for (Project p : prods)
+	{
+	System.out.println(p);
+	}
+	 }
+	@Test
+	public void testfindByOrderByNomProjectAsc()
+	{
+	List<Project> prods =
+			projectRepo.findByOrderByNomProjectAsc();
+	for (Project p : prods)
+	{
+	System.out.println(p);
+	}
+	}
+	@Test
+	public void trierProjectsNomsMontant()
+	{
+	List<Project> prods = projectRepo.trierProjectsNomsMontant();
+	for (Project p : prods)
+	{
+	System.out.println(p);
+	}
+	}
+
 }

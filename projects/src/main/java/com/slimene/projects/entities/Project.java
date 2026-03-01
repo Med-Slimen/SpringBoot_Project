@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 @Entity
 public class Project {
 	@Id
@@ -14,6 +15,8 @@ public class Project {
 	private String nomProject;
 	private String nomClient;
 	private Date dateDeb;
+	@ManyToOne
+	private Departement departement;
 	private int montantProject;
 	public Project() {
 		super();
@@ -59,5 +62,11 @@ public class Project {
 	public String toString() {
 		return "Project [idProject=" + idProject + ", nomProject=" + nomProject + ", nomClient=" + nomClient
 				+ ", dateDeb=" + dateDeb + ", montantProject=" + montantProject + "]";
+	}
+	public Departement getDepartement() {
+		return departement;
+	}
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
 	}
 }
