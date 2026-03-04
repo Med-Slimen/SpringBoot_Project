@@ -24,4 +24,5 @@ public interface ProjectService {
 	List<Project> findByDepartementIdDep(Long id);
 	List<Project> findByOrderByNomProjectAsc();
 	List<Project> trierProjectsNomsMontant ();
+	List<Departement> getAllDepartements();
 }

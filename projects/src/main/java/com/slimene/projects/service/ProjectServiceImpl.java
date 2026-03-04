@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.slimene.projects.entities.Departement;
 import com.slimene.projects.entities.Project;
+import com.slimene.projects.repos.DepartementRepository;
 import com.slimene.projects.repos.ProjectRepository;
 @Service
 public class ProjectServiceImpl implements ProjectService{
 	@Autowired
 	private ProjectRepository projectRepo;
+	@Autowired
+	private DepartementRepository departementRepo;
 	@Override
 	public Project saveProject(Project p) {
 		return projectRepo.save(p);
@@ -90,6 +93,11 @@ public class ProjectServiceImpl implements ProjectService{
 	public List<Project> trierProjectsNomsMontant() {
 		// TODO Auto-generated method stub
 		return projectRepo.trierProjectsNomsMontant();
+	}
+
+	@Override
+	public List<Departement> getAllDepartements() {
+		return departementRepo.findAll();
 	}
 	
 }

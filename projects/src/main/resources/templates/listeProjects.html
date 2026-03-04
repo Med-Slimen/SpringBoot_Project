@@ -23,6 +23,7 @@
 						<th>Nom Client</th>
 						<th>date Debut</th>
 						<th>montant Projects</th>
+						<th>Departement</th>
 					</tr>
 					<tr th:each="p:${projects.content}">
 						<td th:text="${p.idProject}"></td>
@@ -30,9 +31,13 @@
 						<td th:text="${p.nomClient}"></td>
 						<td th:text="${p.dateDeb}"></td>
 						<td th:text="${p.montantProject}"></td>
+						<td th:if= "${!#strings.isEmpty(p.departement)}" th:text="${p.departement.nomDep}"></td>
+						 <td th:if= "${#strings.isEmpty(p.departement)}" th:text="${'Pas de Departement'}"></td>
 						<td><a onclick="return confirm('vous etes sur de supprimer ce project ?')"
 								class="btn btn-danger" th:href="@{supprimerProject(id=${p.idProject},
  page=${currentPage},size=${size})}">Supprimer</a></td>
+ <td><a class="btn btn-success"
+ th:href="@{modifierProject(id=${p.idProject},page=${currentPage},size=${size})}">Editer</a></td>
 
 					</tr>
 				</table>
